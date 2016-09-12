@@ -1,14 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { Work } from '../work';
 import { WorkService } from '../work.service';
+import { WorkListItemComponent } from './work-list-item.component';
 
 import '../rxjs-operators';
 
 @Component({
   selector: 'app-work-list',
   templateUrl: './work-list.component.html',
-  styleUrls: ['./work-list.component.css'],
-  providers: [WorkService]
+  styleUrls: ['./work-list.component.scss'],
+  providers: [WorkService],
+  directives: [WorkListItemComponent]
 })
 export class WorkListComponent implements OnInit {
   works: Work[];
@@ -34,6 +36,10 @@ export class WorkListComponent implements OnInit {
                         .then(
                           work => this.works.push(work),
                           error => this.errorMessage = <any>error);
+  }
+
+  itemHover() {
+    console.log('hej');
   }
 
 }

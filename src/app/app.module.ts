@@ -8,12 +8,16 @@ import { routing,
          appRoutingProviders } from './app.routing';
 import { HomeComponent } from './home-component/home.component';
 import { WorkListComponent } from './work-list/work-list.component';
+import { ServiceComponent } from './service/service.component';
+import { AboutComponent } from './about/about.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
-    WorkListComponent
+    WorkListComponent,
+    ServiceComponent,
+    AboutComponent,
   ],
   imports: [
     BrowserModule,

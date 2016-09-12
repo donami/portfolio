@@ -1,11 +1,21 @@
 <header id="header">
 
-  <h1>{{title}}</h1>
+  <div class="container">
 
-  <nav>
-    <a routerLink="/" routerLinkActive="active">Home</a>
-    <a routerLink="/works" routerLinkActive="active">Works</a>
-  </nav>
+    <div id="logo">
+      <img src="assets/logo.png" alt="logo" />
+    </div>
+
+    <nav>
+      <ul id="menu">
+        <li><a routerLink="/" routerLinkActive="active">Home</a></li>
+        <li><a routerLink="/services" routerLinkActive="active">Our services</a></li>
+        <li><a routerLink="/works" routerLinkActive="active">Works</a></li>
+        <li><a routerLink="/about" routerLinkActive="active">About us</a></li>
+      </ul>
+    </nav>
+
+  </div>
 
 </header>
 
@@ -14,3 +24,9 @@
   <router-outlet></router-outlet>
 
 </div>
+
+<footer id="footer">
+  <div class="container">
+    <div class="footer-logo"></div>
+  </div>
+</footer>

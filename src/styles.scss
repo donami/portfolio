@@ -1,0 +1,31 @@
+$background-color: green;
+
+/** Links **/
+$link-primary-color: #FE8D01;
+$link-hover-color: #C4520C;
+
+body {
+  font-family: 'Roboto Condensed', sans-serif;
+}
+
+p {
+  line-height: 1.6em;
+  font-size: 1.2em;
+  font-weight: 300;
+  margin-bottom: 10px;
+}
+
+h1, h2, h3, h4 {
+  font-weight: 300;
+  text-transform: uppercase;
+}
+
+img {
+  max-width: 100%;
+}
+
+h1.page-title {
+  text-transform: uppercase;
+  font-weight: 300;
+  color: #333;
+}
