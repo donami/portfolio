@@ -1,0 +1,12 @@
+<ul>
+
+  <li *ngFor="let work of works">{{ work.title }}</li>
+
+</ul>
+
+
+<h1>New work</h1>
+<input type="text" #newWorkName />
+<button (click)="addWork(newWorkName.value); newWorkName.value=''">Add work</button>
+
+<div class="error" *ngIf="errorMessage">{{ errorMessage}}</div>
