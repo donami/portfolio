@@ -20,7 +20,7 @@ import { WorkListComponent } from './work-list/work-list.component';
     FormsModule,
     HttpModule,
     JsonpModule,
-    routing
+    routing,
   ],
   providers: [appRoutingProviders],
   bootstrap: [AppComponent]

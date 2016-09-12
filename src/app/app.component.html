@@ -1,9 +1,16 @@
-<h1>
-  {{title}}
-</h1>
+<header id="header">
 
-<nav>
-  <a routerLink="/" routerLinkActive="active">Home</a>
-  <a routerLink="/works" routerLinkActive="active">Works</a>
-</nav>
-<router-outlet></router-outlet>
+  <h1>{{title}}</h1>
+
+  <nav>
+    <a routerLink="/" routerLinkActive="active">Home</a>
+    <a routerLink="/works" routerLinkActive="active">Works</a>
+  </nav>
+
+</header>
+
+<div id="main-content">
+
+  <router-outlet></router-outlet>
+
+</div>
