@@ -38,8 +38,4 @@ export class WorkListComponent implements OnInit {
                           error => this.errorMessage = <any>error);
   }
 
-  itemHover() {
-    console.log('hej');
-  }
-
 }

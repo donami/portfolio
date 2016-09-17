@@ -1,0 +1,36 @@
+<div class="admin-component-container">
+  <div class="ui container">
+    <login></login>
+
+    <div class="ui success message" *ngIf="this.message">
+      <i class="close icon"></i>
+      <div class="header">
+        {{ this.message.title}}
+      </div>
+      <p>{{ this.message.message }}</p>
+    </div>
+
+    <div class="ui raised segment">
+      <h3 class="pointer" (click)="toggleState()">Add work</h3>
+      <form [formGroup]="form" (ngSubmit)="onSubmit(form.value)" class="ui form" id="add-work-form" [@segmentState]="segment.state">
+
+        <div class="field" [class.error]="!title.valid && title.touched">
+          <label for="title">Title</label>
+          <input type="text" [formControl]="form.controls['title']" name="title" placeholder="The title of your work">
+        </div>
+
+
+        <div class="ui buttons">
+          <button class="ui button" (click)="toggleState('inactive')">Cancel</button>
+          <div class="or"></div>
+          <button class="ui positive button">Add</button>
+        </div>
+
+      </form>
+    </div>
+
+
+    <formEditText></formEditText>
+
+  </div>
+</div>

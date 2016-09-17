@@ -34,6 +34,8 @@ import { Component, Renderer, ElementRef, Input } from '@angular/core';
     h3 {
       text-transform: none;
       font-size: 1.6em;
+      margin: 0;
+      line-height: 60px;
     }
   `],
   template: `
