@@ -19,13 +19,33 @@ export class WorkService {
                     .catch(this.handleError);
   }
 
-
+  // Add work
   addWork (title: string): Promise<Work> {
     let body = JSON.stringify({ title });
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
 
     return this.http.post(this.apiUrl, body, options)
+      .toPromise()
+      .then(this.extractData)
+      .catch(this.handleError);
+  }
+
+  // Edit work
+  editWork (work: Work): Promise<Work> {
+    let headers = new Headers({ 'Content-Type': 'application/json' });
+    let options = new RequestOptions({ headers: headers });
+    let body = JSON.stringify(work);
+
+    return this.http.put(this.apiUrl + '/' + work._id, body, options)
+    .toPromise()
+    .then(this.extractData)
+    .catch(this.handleError);
+  }
+
+  // Delete work
+  deleteWork (work: Work): Promise<Work> {
+    return this.http.delete(this.apiUrl + '/' + work._id)
       .toPromise()
       .then(this.extractData)
       .catch(this.handleError);

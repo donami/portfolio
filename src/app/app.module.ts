@@ -20,6 +20,7 @@ import { LoggedInGuard } from './guards/loggedIn.guard';
 import { AdminComponent } from './admin/admin.component';
 import { ContactComponent } from './contact/contact.component';
 import { FormEditTextComponent } from './admin/forms/formEditText.component';
+import { FormEditWorkComponent } from './admin/forms/formEditWork.component';
 import { PopupComponent } from './shared/popup.component';
 import { MessageComponent } from './shared/message.component';
 
@@ -34,6 +35,7 @@ import { MessageComponent } from './shared/message.component';
     AdminComponent,
     ContactComponent,
     FormEditTextComponent,
+    FormEditWorkComponent,
     PopupComponent,
     MessageComponent,
   ],
