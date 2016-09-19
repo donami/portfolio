@@ -7,14 +7,16 @@ import {
   AdminComponent,
   LoginComponent,
   HomeComponent,
-  TestComponent,
+  WorkComponent,
   WorkListComponent,
+  TestComponent,
 } from './components';
 import { LoggedInGuard } from './guards/loggedIn.guard';
 
 const appRoutes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'works', component: WorkListComponent },
+  { path: 'work', component: WorkComponent },
   { path: 'services', component: ServiceComponent },
   { path: 'about', component: AboutComponent },
   { path: 'signin', component: LoginComponent },

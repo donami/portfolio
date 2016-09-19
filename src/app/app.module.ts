@@ -16,6 +16,7 @@ import {
   LoginComponent,
   AdminComponent,
   ContactComponent,
+  WorkComponent,
   TestComponent,
 } from './components';
 import effects from './effects';
@@ -43,6 +44,7 @@ import { TextService } from './shared/text.service';
     PopupComponent,
     MessageComponent,
     TestComponent,
+    WorkComponent,
   ],
   imports: [
     BrowserModule,

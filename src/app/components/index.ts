@@ -6,3 +6,4 @@ export * from './home/home.component';
 export * from './login/login.component';
 export * from './test/test.component';
 export * from './work-list/work-list.component';
+export * from './work/work.component';
