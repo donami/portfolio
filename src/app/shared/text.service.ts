@@ -53,4 +53,9 @@ export class TextService {
       .catch( (err) => Observable.throw(err.json().error));
   }
 
+  deleteText(text: Text): Observable<Text> {
+    return this.http.delete(this.apiUrl + '/' + text._id)
+      .map( (response: Response) => response.json() );
+  }
+
 }

@@ -36,9 +36,9 @@ export class TextEffects {
         .switchMap(text => this.svc.addText(text))
         .map(text => this.textActions.addTextSuccess(text));
 
-    // @Effect() deleteText$ = this.update$
-    //     .whenAction(TextActions.DELETE_TEXT)
-    //     .map(update => update.action.payload)
-    //     .switchMap(text => this.svc.deleteText(text))
-    //     .map(text => this.textActions.deleteTextSuccess(text));
+    @Effect() deleteText$ = this.update$
+        .whenAction(TextActions.DELETE_TEXT)
+        .map(update => update.action.payload)
+        .switchMap(text => this.svc.deleteText(text))
+        .map(text => this.textActions.deleteTextSuccess(text));
 }

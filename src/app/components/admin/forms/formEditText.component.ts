@@ -47,6 +47,7 @@ import { Message } from '../../../shared/message';
 
       <h3 class="pointer" (click)="setState('list')" (click)="toggleState()">Manage texts <i class="angle link icon" [class.down]="this.segment.state == 'inactive'" [class.up]="this.segment.state =='active'"></i></h3>
 
+      <!-- Edit state -->
       <div *ngIf="states.edit">
         <popup title="Edit text">
 
@@ -72,7 +73,9 @@ import { Message } from '../../../shared/message';
 
         </popup>
       </div>
+      <!-- End edit state -->
 
+      <!-- Add state -->
       <div *ngIf="this.states.add">
         <popup title="Add text">
           <form [formGroup]="addForm" class="ui form" (ngSubmit)="onSubmitAddForm(addForm.value)">
@@ -96,7 +99,9 @@ import { Message } from '../../../shared/message';
           </form>
         </popup>
       </div>
+      <!-- End add state -->
 
+      <!-- List state -->
       <div class="ui text-container" [@segmentState]="segment.state" *ngIf="states.list">
 
         <div class="ui large middle aligned list">
@@ -104,6 +109,7 @@ import { Message } from '../../../shared/message';
 
             <div class="right floated content">
               <button class="mini ui button" (click)="selectText(text)">Edit</button>
+              <button class="mini ui red button" (click)="deleteText(text)">Delete</button>
             </div>
 
             <div class="content">
@@ -120,6 +126,7 @@ import { Message } from '../../../shared/message';
         </div>
 
       </div>
+      <!-- End list state -->
     </div>
   `
 })
@@ -238,6 +245,12 @@ export class FormEditTextComponent implements OnInit{
     (<FormGroup>this.form).setValue(text, { onlySelf: true });
 
     this.setState('edit');
+  }
+
+  // Delete text
+  deleteText(text: Text): void {
+    this.store.dispatch(this.textActions.deleteText(text));
+    this.sendMessage.emit(new Message('Removed succesfully!', 'Text was removed successfully', 'info'));
   }
 
 }
