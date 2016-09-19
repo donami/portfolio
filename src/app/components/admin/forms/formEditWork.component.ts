@@ -22,6 +22,21 @@ import { AppState } from '../../../reducers';
             <input type="text" [formControl]="addForm.controls['title']" placeholder="The title of your work">
           </div>
 
+          <div class="field">
+            <label for="title">Description</label>
+            <input type="text" [formControl]="addForm.controls['description']" placeholder="Describe your work">
+          </div>
+
+          <div class="field">
+            <label for="title">Image</label>
+            <input type="text" [formControl]="addForm.controls['image']" placeholder="Image of your work">
+          </div>
+
+          <div class="field">
+            <label for="title">Link</label>
+            <input type="text" [formControl]="addForm.controls['link']" placeholder="Link to your work">
+          </div>
+
           <div class="ui buttons">
             <button class="ui button" (click)="setState('list')" type="button">Cancel</button>
             <div class="or"></div>
@@ -40,6 +55,21 @@ import { AppState } from '../../../reducers';
           <div class="field">
             <label for="title">Title</label>
             <input [formControl]="form.controls['title']" type="text" placeholder="Title">
+          </div>
+
+          <div class="field">
+            <label for="title">Description</label>
+            <input type="text" [formControl]="form.controls['description']" placeholder="Describe your work">
+          </div>
+
+          <div class="field">
+            <label for="title">Image</label>
+            <input type="text" [formControl]="form.controls['image']" placeholder="Image of your work">
+          </div>
+
+          <div class="field">
+            <label for="title">Link</label>
+            <input type="text" [formControl]="form.controls['link']" placeholder="Link to your work">
           </div>
 
           <div class="ui buttons">
@@ -115,12 +145,20 @@ export class FormEditWorkComponent implements OnInit {
   initFormGroup(work: Work) {
     this.form = this._fb.group({
       '_id': [work._id, Validators.required],
-      'title': [work.title, Validators.required]
+      'title': [work.title, Validators.required],
+      'description': [work.description],
+      'link': [work.link],
+      'image': [work.image],
     });
   }
 
   initAddFormGroup() {
-    this.addForm = this._fb.group({ 'title': ['', Validators.required] });
+    this.addForm = this._fb.group({
+       'title': ['', Validators.required],
+       'description': [''],
+       'link': [''],
+       'image': [''],
+     });
   }
 
   onSubmit(work: Work, valid: boolean): void {
