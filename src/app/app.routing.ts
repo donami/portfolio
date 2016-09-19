@@ -9,6 +9,7 @@ import {
   HomeComponent,
   WorkComponent,
   WorkListComponent,
+  NotFoundComponent,
   TestComponent,
 } from './components';
 import { LoggedInGuard } from './guards/loggedIn.guard';
@@ -21,8 +22,10 @@ const appRoutes: Routes = [
   { path: 'about', component: AboutComponent },
   { path: 'signin', component: LoginComponent },
   { path: 'contact', component: ContactComponent },
+  { path: '404', component: NotFoundComponent },
+  { path: 'admin', component: AdminComponent, canActivate: [LoggedInGuard] },
+  { path: '**', redirectTo: '/404'},
   { path: 'test', component: TestComponent },
-  { path: 'admin', component: AdminComponent, canActivate: [LoggedInGuard] }
 ];
 export const appRoutingProviders: any[] = [
 ];

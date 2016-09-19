@@ -7,3 +7,4 @@ export * from './login/login.component';
 export * from './test/test.component';
 export * from './work-list/work-list.component';
 export * from './work/work.component';
+export * from './not-found/not-found.component';

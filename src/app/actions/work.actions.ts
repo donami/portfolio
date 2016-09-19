@@ -22,6 +22,14 @@ export class WorkActions {
     }
   };
 
+  static GET_WORK_FAIL = '[Work] Get Work Fail';
+  getWorkFail(): Action {
+    return {
+      type: WorkActions.GET_WORK_FAIL,
+      payload: {error: 'NotFound'}
+    }
+  };
+
   static LOAD_WORKS = '[Work] Load works';
   loadWorks(): Action {
     return {
@@ -84,5 +92,6 @@ export class WorkActions {
       payload: work
     };
   }
+
 
 }

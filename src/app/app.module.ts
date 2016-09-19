@@ -5,6 +5,7 @@ import { RouterModule } from '@angular/router';
 import { HttpModule, JsonpModule } from '@angular/http';
 import { Store, StoreModule, provideStore } from '@ngrx/store';
 import { runEffects } from '@ngrx/effects';
+import { routerReducer, RouterStoreModule } from '@ngrx/router-store';
 
 import { AppComponent } from './app.component';
 import { routing, appRoutingProviders } from './app.routing';
@@ -17,6 +18,7 @@ import {
   AdminComponent,
   ContactComponent,
   WorkComponent,
+  NotFoundComponent,
   TestComponent,
 } from './components';
 import effects from './effects';
@@ -45,10 +47,13 @@ import { TextService } from './shared/text.service';
     MessageComponent,
     TestComponent,
     WorkComponent,
+    NotFoundComponent,
   ],
   imports: [
     BrowserModule,
     RouterModule.forRoot([], {useHash: false}),
+    StoreModule.provideStore({ router: routerReducer }),
+    RouterStoreModule.connectRouter(),
     FormsModule,
     HttpModule,
     JsonpModule,

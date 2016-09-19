@@ -8,8 +8,10 @@ import workReducer, * as fromWork from './work';
 import messageReducer, * as fromMessage from './message';
 import textListReducer, * as fromTextList from './text-list';
 import textReducer, * as fromText from './text';
+import { RouterState } from '@ngrx/router-store';
 
 export interface AppState {
+    router: RouterState,
     works: fromWorkList.WorkListState,
     work: fromWork.WorkState,
     messages: fromMessage.MessageListState;

@@ -21,7 +21,8 @@ export class WorkService {
   // Get a single work
   getWork(id): Observable<Work> {
     return this.http.get(this.apiUrl + '/' + id)
-      .map( (response: Response) => response.json() );
+      .map( (response: Response) => response.json() )
+      .catch( (error: any) => Observable.throw(error.json().error || 'Server error'));
   }
 
   // Add work

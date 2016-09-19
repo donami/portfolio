@@ -23,6 +23,7 @@
     "@ngrx/core": "^1.2.0",
     "@ngrx/effects": "^1.1.1",
     "@ngrx/router": "^0.4.1",
+    "@ngrx/router-store": "^1.2.4",
     "@ngrx/store": "^2.2.1",
     "@types/jquery": "^1.10.31",
     "@types/lodash": "^4.14.34",

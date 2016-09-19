@@ -1,5 +1,7 @@
 import { Injectable} from '@angular/core';
 import { Effect, StateUpdates, toPayload } from '@ngrx/effects';
+import { go } from '@ngrx/router-store';
+import { Observable } from 'rxjs';
 
 import { AppState } from '../reducers';
 import { WorkActions } from '../actions';
@@ -21,8 +23,14 @@ export class WorkEffects {
     @Effect() getWork$ = this.update$
         .whenAction(WorkActions.GET_WORK)
         .map<string>(toPayload)
-        .switchMap(id => this.svc.getWork(id))
-        .map(work => this.workActions.getWorkSuccess(work));
+        .switchMap((id) => this.svc.getWork(id)
+          .map((work => this.workActions.getWorkSuccess(work)))
+          .catch( () => Observable.of(this.workActions.getWorkFail()))
+        );
+
+    @Effect() getWorkFail = this.update$
+      .whenAction(WorkActions.GET_WORK_FAIL)
+      .map(() => go(['/404']));
 
     @Effect() saveWork$ = this.update$
         .whenAction(WorkActions.SAVE_WORK)
