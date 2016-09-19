@@ -1,3 +1,21 @@
-<p>
-  work works!
-</p>
+<div class="work-component-container">
+  <div class="ui container">
+    <h1>{{ work.title}}</h1>
+
+    <div>
+      <img src="/assets/sequence.png" alt="Image">
+    </div>
+
+    <div>
+      <h3>Description of project:</h3>
+      <div>
+        {{ work.description}}
+      </div>
+    </div>
+
+    <div *ngIf="work.link">
+      Find more about the project <a href="{{ work.link }}">here:</a>
+    </div>
+
+  </div>
+</div>

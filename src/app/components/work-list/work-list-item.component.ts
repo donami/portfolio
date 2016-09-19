@@ -40,7 +40,7 @@ import { Component, Renderer, ElementRef, Input } from '@angular/core';
   `],
   template: `
     <div class="item" (mouseenter)="onMouseEnter()" (mouseleave)="onMouseLeave()">
-      <a href="#">
+      <a [routerLink]="['/work', item._id]">
         <img src="/assets/sequence.png" alt="" />
       </a>
       <div class="description" [ngClass]="{display: isMouseOver}">

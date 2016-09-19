@@ -5,6 +5,23 @@ import { Work } from '../models/work';
 
 @Injectable()
 export class WorkActions {
+
+  static GET_WORK = '[Work] Get Work';
+  getWork(id): Action {
+    return {
+      type: WorkActions.GET_WORK,
+      payload: id,
+    };
+  };
+
+  static GET_WORK_SUCCESS = '[Work] Get Work Success';
+  getWorkSuccess(work): Action {
+    return {
+      type: WorkActions.GET_WORK_SUCCESS,
+      payload: work,
+    }
+  };
+
   static LOAD_WORKS = '[Work] Load works';
   loadWorks(): Action {
     return {

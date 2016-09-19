@@ -16,7 +16,7 @@ import { LoggedInGuard } from './guards/loggedIn.guard';
 const appRoutes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'works', component: WorkListComponent },
-  { path: 'work', component: WorkComponent },
+  { path: 'work/:id', component: WorkComponent },
   { path: 'services', component: ServiceComponent },
   { path: 'about', component: AboutComponent },
   { path: 'signin', component: LoginComponent },

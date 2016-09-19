@@ -1,38 +1,27 @@
-import { ActionReducer, Action } from '@ngrx/store';
+import { Action } from '@ngrx/store';
+
 import { Work } from '../models/work';
-import { WorkActions } from '../actions/work.actions';
-import * as _ from 'lodash';
+import { WorkActions } from '../actions';
 
-export type WorkListState = Work[];
+export type WorkState = Work;
 
-const initialState: WorkListState = [];
+const initialState: WorkState = {
+  _id: '',
+  title: '',
+  created_at: null,
+  updated_at: null,
+  description: '',
+  image: '',
+  link: '',
+};
 
-export default function (state = initialState, action: Action): WorkListState {
+export default function (state = initialState, action: Action): WorkState {
     switch (action.type) {
-
-      case WorkActions.LOAD_WORKS_SUCCESS:
-        return action.payload;
-
-      case WorkActions.ADD_WORK_SUCCESS:
-        return [...state, action.payload];
-
-      case WorkActions.SAVE_WORK_SUCCESS:
-        let index = _.findIndex(state, {_id: action.payload._id});
-        if (index >= 0) {
-          return [
-            ...state.slice(0, index),
-            action.payload,
-            ...state.slice(index + 1)
-          ];
+        case WorkActions.GET_WORK_SUCCESS: {
+            return action.payload;
         }
-        return state;
-
-      case WorkActions.DELETE_WORK_SUCCESS:
-        return state.filter(work => {
-          return work._id !== action.payload._id;
-        });
-
-      default:
-        return state;
+        default: {
+            return state;
+        }
     }
 }

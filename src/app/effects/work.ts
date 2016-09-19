@@ -18,12 +18,12 @@ export class WorkEffects {
         .switchMap(() => this.svc.getAllWorks())
         .map(works => this.workActions.loadWorksSuccess(works));
 
-    // @Effect() getWork$ = this.update$
-    //     .whenAction(WorkActions.GET_WORK)
-    //     .map<string>(toPayload)
-    //     .switchMap(id => this.svc.getWork(id))
-    //     .map(work => this.workActions.getWorkSuccess(work));
-    //
+    @Effect() getWork$ = this.update$
+        .whenAction(WorkActions.GET_WORK)
+        .map<string>(toPayload)
+        .switchMap(id => this.svc.getWork(id))
+        .map(work => this.workActions.getWorkSuccess(work));
+
     @Effect() saveWork$ = this.update$
         .whenAction(WorkActions.SAVE_WORK)
         .map(update => update.action.payload)

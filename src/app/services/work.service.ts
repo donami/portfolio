@@ -18,6 +18,12 @@ export class WorkService {
                     .catch( (error: any) => Observable.throw(error.json().error || 'Server error'));
   }
 
+  // Get a single work
+  getWork(id): Observable<Work> {
+    return this.http.get(this.apiUrl + '/' + id)
+      .map( (response: Response) => response.json() );
+  }
+
   // Add work
   addWork (title: string): Observable<Work> {
     let body = JSON.stringify({ title });
@@ -33,17 +39,6 @@ export class WorkService {
     return this.http.post(this.apiUrl, work)
             .map(res => res.json());
   }
-
-  // Edit work
-  // editWork (work: Work): Observable<Work> {
-  //   let headers = new Headers({ 'Content-Type': 'application/json' });
-  //   let options = new RequestOptions({ headers: headers });
-  //   let body = JSON.stringify(work);
-  //
-  //   return this.http.put(this.apiUrl + '/' + work._id, body, options)
-  //     .map( (response) => response.json() )
-  //     .catch( (error: any) => Observable.throw(error.json().error || 'Server error'));
-  // }
 
   saveWork(work: Work): Observable<Work> {
     return this.http.put(this.apiUrl + '/' + work._id, work)

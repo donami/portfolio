@@ -3,13 +3,15 @@ import {compose} from '@ngrx/core/compose';
 // import {storeLogger} from 'ngrx-store-logger';
 import {combineReducers} from '@ngrx/store';
 
-import workReducer, * as fromWorkList from './work';
+import workListReducer, * as fromWorkList from './work-list';
+import workReducer, * as fromWork from './work';
 import messageReducer, * as fromMessage from './message';
 import textListReducer, * as fromTextList from './text-list';
 import textReducer, * as fromText from './text';
 
 export interface AppState {
     works: fromWorkList.WorkListState,
+    work: fromWork.WorkState,
     messages: fromMessage.MessageListState;
     texts: fromTextList.TextListState;
     text: fromText.TextState;
@@ -22,7 +24,8 @@ export interface AppState {
 
 // export default compose(storeLogger(), combineReducers)({
 export default compose(combineReducers)({
-    works: workReducer,
+    work: workReducer,
+    works: workListReducer,
     messages: messageReducer,
     texts: textListReducer,
     text: textReducer
