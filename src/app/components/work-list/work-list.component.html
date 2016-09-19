@@ -1,0 +1,20 @@
+<div class="work-list-component-container">
+
+  <div class="ui container">
+
+    <h1 class="page-title">Portfolio</h1>
+
+    <div *ngFor="let work of (works | async)">
+      <WorkItem [item]="work" ></WorkItem>
+    </div>
+
+
+    <!-- <h1>New work</h1>
+    <input type="text" #newWorkName />
+    <button (click)="addWork(newWorkName.value); newWorkName.value=''">Add work</button>
+
+    <div class="error" *ngIf="errorMessage">{{ errorMessage}}</div> -->
+
+  </div>
+
+</div>

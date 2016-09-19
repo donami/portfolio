@@ -15,16 +15,23 @@ import {
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 
-import { AppState } from '../reducers';
-import { MessageActions } from '../actions';
-import { Message } from '../shared/message';
-import { LoginComponent } from '../components/login/login.component';
+import { AppState } from '../../reducers';
+import { MessageActions } from '../../actions';
+import { Message } from '../../shared/message';
+import { LoginComponent } from '../../components/login/login.component';
+
+import { FormEditWorkComponent } from './forms/formEditWork.component';
+import { FormEditTextComponent } from './forms/formEditText.component';
 
 @Component({
   selector: 'app-admin',
   templateUrl: './admin.component.html',
   styleUrls: ['./admin.component.scss'],
-  directives: [REACTIVE_FORM_DIRECTIVES],
+  directives: [
+    FormEditWorkComponent,
+    FormEditTextComponent,
+    REACTIVE_FORM_DIRECTIVES
+  ],
 })
 export class AdminComponent {
 

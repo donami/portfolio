@@ -1,0 +1,10 @@
+<div class="admin-component-container">
+  <div class="ui container">
+    <login></login>
+
+    <formEditWork [works]="works" (sendMessage)="message($event)"></formEditWork>
+
+    <formEditText [texts]="texts" (sendMessage)="message($event)"></formEditText>
+
+  </div>
+</div>

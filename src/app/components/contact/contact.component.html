@@ -1,0 +1,32 @@
+<div class="contact-component-container">
+  <div class="ui container">
+    <h1 class="page-title">{{ contentText?.title}}</h1>
+
+    <p>{{ contentText?.content }}</p>
+
+    <div *ngIf="!form.valid && submitted" class="ui error message">
+      You can not leave any fields empty
+    </div>
+
+    <form [formGroup]="form" (ngSubmit)="onSubmit(form.value, form.valid)" class="ui form">
+
+      <div class="field" [class.error]="!name.valid && name.touched">
+        <label for="name">Name</label>
+        <input [formControl]="form.controls['name']" type="text" placeholder="Enter your full name">
+      </div>
+
+      <div class="field" [class.error]="!email.valid && email.touched">
+        <label for="email">Email</label>
+        <input [formControl]="form.controls['email']" type="text" placeholder="Enter your email">
+      </div>
+
+      <div class="field" [class.error]="!text.valid && text.touched">
+        <label for="text">Message</label>
+        <textarea [formControl]="form.controls['text']" placeholder="Your message"></textarea>
+      </div>
+
+      <button type="submit" class="positive ui button">Submit</button>
+    </form>
+
+  </div>
+</div>

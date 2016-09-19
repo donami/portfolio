@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Http, Response, RequestOptions, Headers } from '@angular/http';
-import { Text } from './text';
+import { Text } from './text.interface';
+
+import { Observable } from 'rxjs'
 
 @Injectable()
 export class TextService {
@@ -10,54 +12,45 @@ export class TextService {
   constructor(private http: Http) {
   }
 
-  getText(id: string): Promise<Text> {
+  getText(id: string): Observable<Text> {
     return this.http.get(this.apiUrl + '/' + id)
-                  .toPromise()
-                  .then(this.extractData)
-                  .catch(this.handleError)
+        .map(res => res.json());
   }
 
-  getTextList(): Promise<Text[]> {
+  getTextList(): Observable<Text[]> {
     return this.http.get(this.apiUrl)
-                    .toPromise()
-                    .then(this.extractData)
-                    .catch(this.handleError);
+                    .map((response: Response) => response.json())
+                      .catch( (error: any) => Observable.throw(error.json().error || 'Server error'));
   }
 
-  createText(text: Text): Promise<Text> {
+  createText(text: Text): Observable<Text> {
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
     let body = JSON.stringify(text);
 
     return this.http.post(this.apiUrl, body, options)
-      .toPromise()
-      .then(this.extractData)
-      .catch(this.handleError);
+      .map( (response) => response.json() )
+      .catch( (err) => Observable.throw(err.json().error));
   }
 
-  updateText(text: Text): Promise<Text> {
+  addText(text: Text): Observable<Text> {
+    return this.http.post(this.apiUrl, text)
+            .map(res => res.json());
+  }
+
+  saveText(text: Text): Observable<Text> {
+    return this.http.put(this.apiUrl + '/' + text._id, text)
+            .map(res => res.json());
+  }
+
+  updateText(text: Text): Observable<Text> {
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
     let body = JSON.stringify(text);
 
     return this.http.put(this.apiUrl + '/' + text._id, body, options)
-      .toPromise()
-      .then(this.extractData)
-      .catch(this.handleError);
+      .map( (response: Response) => response.json() )
+      .catch( (err) => Observable.throw(err.json().error));
   }
 
-  private extractData(res: Response) {
-    let body = res.json();
-
-    return body || { };
-  }
-
-  private handleError (error: any) {
-    // In a real world app, we might use a remote logging infrastructure
-    // We'd also dig deeper into the error to get a better message
-    let errMsg = (error.message) ? error.message :
-      error.status ? `${error.status} - ${error.statusText}` : 'Server error';
-    console.error(errMsg); // log to console instead
-    return Promise.reject(errMsg);
-  }
 }

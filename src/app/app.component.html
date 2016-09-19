@@ -23,6 +23,16 @@
 
 <div id="main-content">
 
+  <div *ngIf="messages" class="ui container toast" @mAnimation>
+    <message *ngFor="let message of (messages | async); let i = index"
+      [title]="message.title"
+      [message]="message.message"
+      [type]="message.type"
+      [index]="i"
+      (closeClickFire)="closeMessage($event)">
+    </message>
+  </div>
+
   <router-outlet></router-outlet>
 
 </div>

@@ -40,3 +40,19 @@ h1.page-title {
 .show {
   display: block;
 }
+
+.toast {
+  position: fixed;
+  right: 5%;
+  bottom: 10%;
+  z-index: 999;
+  width: 20%;
+
+  .ui.message {
+    margin-bottom: 10px;
+
+    &:last-child {
+      margin-bottom: none;
+    }
+  }
+}
