@@ -1,21 +1,52 @@
 <div class="work-component-container">
   <div class="ui container">
+
     <h1>{{ work.title}}</h1>
 
-    <div>
-      <img src="/assets/sequence.png" alt="Image">
-    </div>
+    <!-- UI Grid -->
+    <div class="ui grid">
 
-    <div>
-      <h3>Description of project:</h3>
-      <div>
-        {{ work.description}}
+      <!-- Column -->
+      <div class="ten wide column">
+
+        <div class="image-container">
+          <img src="/assets/sequence.png" alt="Image">
+        </div>
+
+        <div *ngIf="work.link" class="links">
+          <h3>Links</h3>
+          <p>Find out more about the project <a href="{{ work.link }}">here:</a></p>
+        </div>
+
       </div>
-    </div>
+      <!-- End Column -->
 
-    <div *ngIf="work.link">
-      Find more about the project <a href="{{ work.link }}">here:</a>
+
+      <!-- Column -->
+      <div class="six wide column">
+
+        <div class="description">
+          <h3>Description of project:</h3>
+          <p>
+            {{ work.description}}
+          </p>
+        </div>
+
+        <div class="technologies">
+          <h3>Technologies used</h3>
+          <div class="ui middle aligned divided list">
+            <div class="item">AngularJS</div>
+            <div class="item">MongoDB</div>
+          </div>
+        </div>
+
+      </div>
+      <!-- End Column -->
+
     </div>
+    <!-- End UI Grid -->
+
+
 
   </div>
 </div>
