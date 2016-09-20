@@ -24,8 +24,8 @@ const appRoutes: Routes = [
   { path: 'contact', component: ContactComponent },
   { path: '404', component: NotFoundComponent },
   { path: 'admin', component: AdminComponent, canActivate: [LoggedInGuard] },
-  { path: '**', redirectTo: '/404'},
   { path: 'test', component: TestComponent },
+  { path: '**', redirectTo: '/404'},
 ];
 export const appRoutingProviders: any[] = [
 ];

@@ -23,6 +23,7 @@ export class WorkComponent implements OnInit {
   ) {
     this.store.select('work')
       .subscribe(work => this.work = work);
+
   }
 
   ngOnInit() {

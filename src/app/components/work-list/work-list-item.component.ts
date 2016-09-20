@@ -41,7 +41,8 @@ import { Component, Renderer, ElementRef, Input } from '@angular/core';
   template: `
     <div class="item" (mouseenter)="onMouseEnter()" (mouseleave)="onMouseLeave()">
       <a [routerLink]="['/work', item._id]">
-        <img src="/assets/sequence.png" alt="" />
+        <img *ngIf="!item.image" src="/assets/noimage.png" alt="{{ item.title}}" />
+        <img *ngIf="item.image" src="http://localhost:3001/{{item.image}}" alt="{{ item.title }}"/>
       </a>
       <div class="description" [ngClass]="{display: isMouseOver}">
         <h3>{{ item.title }}</h3>

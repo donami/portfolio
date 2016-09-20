@@ -6,9 +6,11 @@ import { Work } from '../../../models/work';
 import { Message } from '../../../shared/message';
 import { WorkActions } from '../../../actions';
 import { AppState } from '../../../reducers';
+import { FileUploadComponent } from './file-upload.component';
 
 @Component({
   selector: 'formEditWork',
+  directives: [FileUploadComponent],
   template: `
     <div class="ui raised segment">
       <h3 (click)="setState('list')" class="pointer">Edit works</h3>
@@ -24,17 +26,19 @@ import { AppState } from '../../../reducers';
 
           <div class="field">
             <label for="title">Description</label>
-            <input type="text" [formControl]="addForm.controls['description']" placeholder="Describe your work">
+            <textarea [formControl]="addForm.controls['description']" placeholder="Describe your work"></textarea>
           </div>
 
-          <div class="field">
-            <label for="title">Image</label>
-            <input type="text" [formControl]="addForm.controls['image']" placeholder="Image of your work">
-          </div>
+          <file-upload (fileUploaded)="getFile($event)"></file-upload>
 
           <div class="field">
             <label for="title">Link</label>
-            <input type="text" [formControl]="addForm.controls['link']" placeholder="Link to your work">
+            <div class="ui labeled input">
+              <div class="ui label">
+                http://
+              </div>
+              <input type="text" [formControl]="addForm.controls['link']" placeholder="yourwork.com">
+            </div>
           </div>
 
           <div class="ui buttons">
@@ -59,17 +63,19 @@ import { AppState } from '../../../reducers';
 
           <div class="field">
             <label for="title">Description</label>
-            <input type="text" [formControl]="form.controls['description']" placeholder="Describe your work">
+            <textarea [formControl]="form.controls['description']" placeholder="Describe your work"></textarea>
           </div>
 
-          <div class="field">
-            <label for="title">Image</label>
-            <input type="text" [formControl]="form.controls['image']" placeholder="Image of your work">
-          </div>
+          <file-upload (fileUploaded)="getFile($event)"></file-upload>
 
           <div class="field">
             <label for="title">Link</label>
-            <input type="text" [formControl]="form.controls['link']" placeholder="Link to your work">
+            <div class="ui labeled input">
+              <div class="ui label">
+                http://
+              </div>
+              <input type="text" [formControl]="form.controls['link']" placeholder="yourwork.com">
+            </div>
           </div>
 
           <div class="ui buttons">
@@ -121,6 +127,7 @@ export class FormEditWorkComponent implements OnInit {
   private selectedWork: Work;
   private form: FormGroup;
   private addForm: FormGroup;
+  private image: any;
 
   @Input() works;
   @Output() sendMessage = new EventEmitter();
@@ -163,6 +170,10 @@ export class FormEditWorkComponent implements OnInit {
 
   onSubmit(work: Work, valid: boolean): void {
     if (valid) {
+      if (this.image) {
+        work.image = this.image.filename;
+      }
+
       this.store.dispatch(this.workActions.saveWork(work));
       this.sendMessage.emit(new Message('Updated successfully!', 'Your changes was saved', 'positive'));
       this.setState('list');
@@ -171,6 +182,10 @@ export class FormEditWorkComponent implements OnInit {
 
   onSubmitAdd(work: Work, valid: boolean): void {
     if (valid) {
+      if (this.image) {
+        work.image = this.image.filename;
+      }
+
       this.store.dispatch(this.workActions.addWork(work));
       this.sendMessage.emit(new Message('Added successfully', 'Your work has been added', 'positive'));
       this.setState('list');
@@ -200,5 +215,9 @@ export class FormEditWorkComponent implements OnInit {
     };
 
     this.states[state] = true;
+  }
+
+  getFile(event): void {
+    this.image = event;
   }
 }

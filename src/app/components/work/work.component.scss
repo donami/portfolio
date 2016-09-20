@@ -4,6 +4,10 @@
     font-size: 4em;
   }
 
+  h3 {
+    font-size: 2em;
+  }
+
   .image-container {
     padding: 200px 60px;
     border: #FE8A00 1px solid;
@@ -14,19 +18,16 @@
 
   .links {
     h3 {
-      font-size: 2em;
       margin-bottom: 5px;
     }
     p {
       font-size: 1.2em;
+      text-transform: uppercase;
     }
   }
 
   .description {
     margin-bottom: 20px;
-    h3 {
-      font-size: 2em;
-    }
     p {
       font-size: 1.2em;
     }
@@ -34,10 +35,6 @@
 
   .technologies {
     margin-bottom: 20px;
-
-    h3 {
-      font-size: 2em;
-    }
 
     .item {
       padding: 15px;

@@ -10,12 +10,13 @@
       <div class="ten wide column">
 
         <div class="image-container">
-          <img src="/assets/sequence.png" alt="Image">
+          <img *ngIf="work.image" src="http://localhost:3001/{{work.image }}" alt="">
+          <img *ngIf="!work.image" src="/assets/noimage.png" alt="Image">
         </div>
 
         <div *ngIf="work.link" class="links">
           <h3>Links</h3>
-          <p>Find out more about the project <a href="{{ work.link }}">here:</a></p>
+          <p>Find out more about the project <a href="{{ work.link }}">here</a></p>
         </div>
 
       </div>
