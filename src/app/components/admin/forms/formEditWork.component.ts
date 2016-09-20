@@ -7,10 +7,14 @@ import { Message } from '../../../shared/message';
 import { WorkActions } from '../../../actions';
 import { AppState } from '../../../reducers';
 import { FileUploadComponent } from './file-upload.component';
+import { AddTechnologyComponent } from './add-technology.component';
 
 @Component({
   selector: 'formEditWork',
-  directives: [FileUploadComponent],
+  directives: [
+    FileUploadComponent,
+    AddTechnologyComponent,
+  ],
   template: `
     <div class="ui raised segment">
       <h3 (click)="setState('list')" class="pointer">Edit works</h3>
@@ -29,6 +33,8 @@ import { FileUploadComponent } from './file-upload.component';
             <textarea [formControl]="addForm.controls['description']" placeholder="Describe your work"></textarea>
           </div>
 
+          <technology (saveTechnologies)="setTechnologies($event)" (unsavedChangesEvent)="setUnsavedChanges($event)"></technology>
+
           <file-upload (fileUploaded)="getFile($event)"></file-upload>
 
           <div class="field">
@@ -44,7 +50,7 @@ import { FileUploadComponent } from './file-upload.component';
           <div class="ui buttons">
             <button class="ui button" (click)="setState('list')" type="button">Cancel</button>
             <div class="or"></div>
-            <button class="ui positive button" type="submit">Add</button>
+            <button class="ui positive button" [class.disabled]="unsavedChanges" type="submit">Add</button>
           </div>
 
         </form>
@@ -66,6 +72,11 @@ import { FileUploadComponent } from './file-upload.component';
             <textarea [formControl]="form.controls['description']" placeholder="Describe your work"></textarea>
           </div>
 
+          <technology [work]="selectedWork"
+            (saveTechnologies)="setTechnologies($event)"
+            (unsavedChangesEvent)="setUnsavedChanges($event)">
+          </technology>
+
           <file-upload (fileUploaded)="getFile($event)"></file-upload>
 
           <div class="field">
@@ -81,7 +92,7 @@ import { FileUploadComponent } from './file-upload.component';
           <div class="ui buttons">
             <button (click)="setState('list')" class="ui button" type="button">Cancel</button>
             <div class="or"></div>
-            <button class="ui positive button" type="submit">Save</button>
+            <button class="ui positive button" [class.disabled]="unsavedChanges" type="submit">Save</button>
           </div>
 
         </form>
@@ -128,6 +139,8 @@ export class FormEditWorkComponent implements OnInit {
   private form: FormGroup;
   private addForm: FormGroup;
   private image: any;
+  private technologies: string[];
+  private unsavedChanges: boolean = false;
 
   @Input() works;
   @Output() sendMessage = new EventEmitter();
@@ -143,6 +156,7 @@ export class FormEditWorkComponent implements OnInit {
       add: false
     };
 
+    this.technologies = [];
   }
 
   ngOnInit() {
@@ -174,6 +188,8 @@ export class FormEditWorkComponent implements OnInit {
         work.image = this.image.filename;
       }
 
+      if (this.technologies) work.technologies = this.technologies;
+
       this.store.dispatch(this.workActions.saveWork(work));
       this.sendMessage.emit(new Message('Updated successfully!', 'Your changes was saved', 'positive'));
       this.setState('list');
@@ -185,6 +201,8 @@ export class FormEditWorkComponent implements OnInit {
       if (this.image) {
         work.image = this.image.filename;
       }
+
+      if (this.technologies) work.technologies = this.technologies;
 
       this.store.dispatch(this.workActions.addWork(work));
       this.sendMessage.emit(new Message('Added successfully', 'Your work has been added', 'positive'));
@@ -219,5 +237,14 @@ export class FormEditWorkComponent implements OnInit {
 
   getFile(event): void {
     this.image = event;
+  }
+
+  // Dispatched from child component
+  setTechnologies(event): void {
+    this.technologies = event.data;
+  }
+
+  setUnsavedChanges(event: boolean): void {
+    this.unsavedChanges = event;
   }
 }

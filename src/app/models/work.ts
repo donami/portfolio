@@ -6,4 +6,5 @@ export interface Work {
   description?: string,
   image?: string,
   link?: string,
+  technologies?: string[],
 }

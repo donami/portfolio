@@ -33,11 +33,10 @@
           </p>
         </div>
 
-        <div class="technologies">
+        <div *ngIf="work.technologies.length" class="technologies">
           <h3>Technologies used</h3>
           <div class="ui middle aligned divided list">
-            <div class="item">AngularJS</div>
-            <div class="item">MongoDB</div>
+            <div *ngFor="let technology of work.technologies" class="item">{{ technology }}</div>
           </div>
         </div>
 

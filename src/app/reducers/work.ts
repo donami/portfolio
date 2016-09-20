@@ -13,6 +13,7 @@ const initialState: WorkState = {
   description: '',
   image: '',
   link: '',
+  technologies: [],
 };
 
 export default function (state = initialState, action: Action): WorkState {

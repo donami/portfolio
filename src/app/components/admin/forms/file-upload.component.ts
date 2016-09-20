@@ -39,7 +39,6 @@ export class FileUploadComponent {
       console.log(result);
       this.file = result[0];
       this.fileUploaded.emit(this.file);
-      console.log(this.file);
     }, (error) => {
       console.error(error);
     });
