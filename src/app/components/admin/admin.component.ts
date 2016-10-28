@@ -17,6 +17,7 @@ import { Observable } from 'rxjs';
 
 import { AppState } from '../../reducers';
 import { MessageActions } from '../../actions';
+import { UIActions } from '../../actions';
 import { Message } from '../../shared/message';
 import { LoginComponent } from '../../components/login/login.component';
 
@@ -41,14 +42,29 @@ export class AdminComponent {
 
   works: Observable<any>;
   texts: Observable<any>;
+  ui$: Observable<any>;
+  ui: any;
 
-  constructor(private store: Store<AppState>, private messageActions: MessageActions) {
+  constructor(
+    private store: Store<AppState>,
+    private messageActions: MessageActions,
+    private UIActions: UIActions
+  ) {
     this.works = store.select('works');
     this.texts = store.select('texts');
+    this.ui$ = store.select('ui');
+    this.ui$.subscribe(data => {
+      this.ui = data;
+    });
+    console.log(this.ui);
   }
 
   message(data): void {
     this.store.dispatch(this.messageActions.addMessage(data));
+  }
+
+  toggleUIComponent(component): void {
+    this.store.dispatch(this.UIActions.openComponent(component));
   }
 
 }

@@ -6,12 +6,12 @@ import { environment } from './environments/environment';
 import { AppModule } from './app/';
 import * as jQuery from 'jquery';
 
-import {FIREBASE_PROVIDERS,
-  defaultFirebase,
-  AngularFire,
-  AuthMethods,
-  AuthProviders,
-  firebaseAuthConfig} from 'angularfire2';
+// import {FIREBASE_PROVIDERS,
+//   defaultFirebase,
+//   AngularFire,
+//   AuthMethods,
+//   AuthProviders,
+//   firebaseAuthConfig} from 'angularfire2';
 
 if (environment.production) {
   enableProdMode();

@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, OnChanges, Input, Output, EventEmitter, SimpleChanges } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 
@@ -17,7 +17,7 @@ import { AddTechnologyComponent } from './add-technology.component';
   ],
   template: `
     <div class="ui raised segment">
-      <h3 (click)="setState('list')" class="pointer">Edit works</h3>
+      <h3 (click)="setState('list')" class="pointer" (click)="toggleOpen()">Edit works</h3>
 
       <!-- Add work -->
       <div *ngIf="states.add">
@@ -126,7 +126,7 @@ import { AddTechnologyComponent } from './add-technology.component';
     </div>
   `
 })
-export class FormEditWorkComponent implements OnInit {
+export class FormEditWorkComponent implements OnInit, OnChanges {
 
   states: {
     list: boolean,
@@ -143,24 +143,38 @@ export class FormEditWorkComponent implements OnInit {
   private unsavedChanges: boolean = false;
 
   @Input() works;
+  @Input() open;
   @Output() sendMessage = new EventEmitter();
+  @Output() toggleUIComponent = new EventEmitter();
 
   constructor(
     private store: Store<AppState>,
     private workActions: WorkActions,
     private _fb: FormBuilder) {
 
-    this.states = {
-      list: false,
-      edit: false,
-      add: false
-    };
+    this.resetStates();
 
     this.technologies = [];
   }
 
   ngOnInit() {
     this.initAddFormGroup();
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    let openChanges = changes['open'];
+    if (openChanges.currentValue === true) {
+      if (this.states.list === false && this.states.edit === false && this.states.add === false) {
+        this.states.list = true;
+      }
+    }
+    else {
+      this.resetStates();
+    }
+  }
+
+  toggleOpen(): void {
+    this.toggleUIComponent.emit('works');
   }
 
   initFormGroup(work: Work) {
@@ -180,6 +194,14 @@ export class FormEditWorkComponent implements OnInit {
        'link': [''],
        'image': [''],
      });
+  }
+
+  resetStates() {
+    this.states = {
+      list: false,
+      edit: false,
+      add: false
+    };
   }
 
   onSubmit(work: Work, valid: boolean): void {

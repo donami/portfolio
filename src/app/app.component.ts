@@ -14,6 +14,7 @@ import { AppState } from './reducers';
 import { MessageActions } from './actions';
 import { TextActions } from './actions';
 import { WorkActions } from './actions';
+import { UIActions } from './actions';
 
 @Component({
   selector: 'app-root',
@@ -45,13 +46,15 @@ export class AppComponent {
     public store: Store<AppState>,
     public workActions: WorkActions,
     public messageActions: MessageActions,
-    private textActions: TextActions
+    private textActions: TextActions,
+    private UIActions: UIActions
   ) {
 
     this.messages = store.select('messages');
 
     this.store.dispatch(workActions.loadWorks());
     this.store.dispatch(textActions.loadTexts());
+    this.store.dispatch(UIActions.load());
   }
 
 

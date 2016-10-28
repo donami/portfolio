@@ -2,9 +2,9 @@
   <div class="ui container">
     <login></login>
 
-    <formEditWork [works]="works" (sendMessage)="message($event)"></formEditWork>
+    <formEditWork [works]="works" [open]="ui.components.works.open" (sendMessage)="message($event)" (toggleUIComponent)="toggleUIComponent($event)"></formEditWork>
 
-    <formEditText [texts]="texts" (sendMessage)="message($event)"></formEditText>
+    <formEditText [texts]="texts" [open]="ui.components.texts.open" (sendMessage)="message($event)" (toggleUIComponent)="toggleUIComponent($event)"></formEditText>
 
   </div>
 </div>

@@ -32,6 +32,7 @@ import { MessageComponent } from './shared/message.component';
 import { MessageService } from './shared/message.service';
 import { WorkService } from './services/work.service';
 import { TextService } from './shared/text.service';
+import { UIService } from './services/ui.service';
 
 @NgModule({
   declarations: [
@@ -70,6 +71,7 @@ import { TextService } from './shared/text.service';
     actions,
     WorkService,
     TextService,
+    UIService,
   ],
   bootstrap: [AppComponent]
 })

@@ -1,9 +1,11 @@
 import {
   Component,
   OnInit,
+  OnChanges,
   Input,
   Output,
   EventEmitter,
+  SimpleChanges,
   trigger,
   state,
   animate,
@@ -120,7 +122,7 @@ import { Message } from '../../../shared/message';
         </div>
 
         <div class="ui buttons">
-          <button class="ui button" (click)="toggleState('inactive')">Cancel</button>
+          <button class="ui button" (click)="toggleState()">Cancel</button>
           <div class="or"></div>
           <button class="ui positive button" (click)="setState('add')">Add</button>
         </div>
@@ -130,8 +132,7 @@ import { Message } from '../../../shared/message';
     </div>
   `
 })
-export class FormEditTextComponent implements OnInit{
-
+export class FormEditTextComponent implements OnInit, OnChanges {
   @Output() sendMessage = new EventEmitter();
 
   form: FormGroup;
@@ -159,6 +160,9 @@ export class FormEditTextComponent implements OnInit{
   private selectedText;
 
   @Input() texts;
+  @Input() open: any;
+  @Output() toggleUIComponent = new EventEmitter();
+
   errorMessage: string;
 
   constructor(
@@ -201,6 +205,17 @@ export class FormEditTextComponent implements OnInit{
 
   ngOnInit() {}
 
+  ngOnChanges(changes: SimpleChanges): void {
+    let openChanges = changes['open'];
+
+    if (openChanges.currentValue === true) {
+      this.segment.state = 'active';
+    }
+    else {
+      this.segment.state = 'inactive';
+    }
+  }
+
   onSubmit(data: Text): void {
     this.store.dispatch(this.textActions.saveText(data));
     this.sendMessage.emit(new Message('Updated successfully!', 'Text was updated successfully', 'positive'));
@@ -215,17 +230,7 @@ export class FormEditTextComponent implements OnInit{
   }
 
   toggleState(state?: string): void {
-    if (state) {
-      this.segment.state = state;
-      return;
-    }
-
-    if (this.segment.state == 'active') {
-      this.segment.state = 'inactive';
-    }
-    else {
-      this.segment.state = 'active';
-    }
+    this.toggleUIComponent.emit('texts');
   }
 
   setState(state: string): void {

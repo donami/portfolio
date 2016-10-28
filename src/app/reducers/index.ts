@@ -8,6 +8,7 @@ import workReducer, * as fromWork from './work';
 import messageReducer, * as fromMessage from './message';
 import textListReducer, * as fromTextList from './text-list';
 import textReducer, * as fromText from './text';
+import uiReducer, * as fromUI from './ui';
 import { RouterState } from '@ngrx/router-store';
 
 export interface AppState {
@@ -17,6 +18,7 @@ export interface AppState {
     messages: fromMessage.MessageListState;
     texts: fromTextList.TextListState;
     text: fromText.TextState;
+    ui: fromUI.UIState;
 };
 
 //uncomment the storeLogger import and this line
@@ -30,5 +32,6 @@ export default compose(storeLogger(), combineReducers)({
     works: workListReducer,
     messages: messageReducer,
     texts: textListReducer,
-    text: textReducer
+    text: textReducer,
+    ui: uiReducer
 });
