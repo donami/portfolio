@@ -19,8 +19,13 @@ const initialState: UIState = {
 export default function (state = initialState, action: Action): UIState {
     switch (action.type) {
       case UIActions.ActionTypes.OPEN_COMPLETE: {
-        state.components[action.payload].open = !state.components[action.payload].open;
-        return state;
+        return Object.assign({}, state, {
+          components: Object.assign({}, state.components, {
+            [action.payload]: Object.assign({}, state.components[action.payload], {
+              open: !state.components[action.payload].open,
+            }),
+          }),
+        });
       }
       case UIActions.ActionTypes.OPEN: {
         return state;
