@@ -1,19 +1,23 @@
+$background-color: #2A3031;
+$font-color: #fff;
+$link-color: #fff;
+$link-hover-color: #FE8D01;
+
 footer#footer {
-  background: #2A3031;
+  background: $background-color;
   padding: 40px 20px;
-  min-height: 300px;
-  color: #fff;
+  color: $font-color;
 
   h3 {
-    color: #fff;
+    color: $font-color;
     margin-top: 10px;
   }
 
   a {
-    color: #fff;
+    color: $link-color;
 
     &:hover {
-      color: #FE8D01;
+      color: $link-hover-color;
     }
   }
 
