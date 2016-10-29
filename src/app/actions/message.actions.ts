@@ -1,6 +1,59 @@
 import { Injectable } from '@angular/core';
 import { Action } from '@ngrx/store';
+import { type } from '../util';
 
+export const ActionTypes = {
+  LOAD:             type('[Message] Load'),
+  LOAD_COMPLETE:    type('[Message] Load Complete'),
+  ADD:              type('[Message] Add'),
+  ADD_COMPLETE:     type('[Message] Add Complete'),
+  DELETE:           type('[Message] Delete'),
+  DELETE_COMPLETE:  type('[Message] Delete Complete'),
+};
+
+export class loadMessage implements Action {
+  type = ActionTypes.LOAD;
+}
+
+export class loadMessageSuccess implements Action {
+  type = ActionTypes.LOAD_COMPLETE;
+
+  constructor(public payload: any) { }
+}
+
+export class addMessage implements Action {
+  type = ActionTypes.ADD;
+
+  constructor(public payload: any) { }
+}
+
+export class addMessageSuccess implements Action {
+  type = ActionTypes.ADD_COMPLETE;
+
+  constructor(public payload: any) { }
+}
+
+export class deleteMessage implements Action {
+  type = ActionTypes.DELETE;
+
+  constructor(public payload: any) { }
+}
+
+export class deleteMessageSuccess implements Action {
+  type = ActionTypes.DELETE_COMPLETE;
+
+  constructor(public payload: any) { }
+}
+
+export type Actions
+  = loadMessage
+  | loadMessageSuccess
+  | addMessage
+  | addMessageSuccess
+  | deleteMessage
+  | deleteMessageSuccess;
+
+/*
 @Injectable()
 export class MessageActions {
 
@@ -52,3 +105,4 @@ export class MessageActions {
   };
 
 }
+*/

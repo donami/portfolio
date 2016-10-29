@@ -10,7 +10,6 @@ import { WorkListItemComponent } from './work-list-item.component';
   selector: 'app-work-list',
   templateUrl: './work-list.component.html',
   styleUrls: ['./work-list.component.scss'],
-  directives: [WorkListItemComponent]
 })
 export class WorkListComponent {
   works: Observable<any>;

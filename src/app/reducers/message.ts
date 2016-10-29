@@ -1,5 +1,5 @@
 import { ActionReducer, Action } from '@ngrx/store';
-import { MessageActions } from '../actions';
+import * as MessageActions from '../actions/message.actions';
 import { Message } from '../shared/message';
 
 export type MessageListState = Message[];
@@ -11,22 +11,22 @@ export default function (state = initialState, action: Action): MessageListState
 
   switch (action.type) {
 
-    case MessageActions.LOAD_MESSAGE:
+    case MessageActions.ActionTypes.LOAD:
       return state;
 
-    case MessageActions.LOAD_MESSAGE_SUCCESS:
+    case MessageActions.ActionTypes.LOAD_COMPLETE:
       return state;
 
-    case MessageActions.ADD_MESSAGE:
+    case MessageActions.ActionTypes.ADD:
       return state;
 
-    case MessageActions.ADD_MESSAGE_SUCCESS:
+    case MessageActions.ActionTypes.ADD_COMPLETE:
       return [...state, action.payload];
 
-    case MessageActions.DELETE_MESSAGE:
+    case MessageActions.ActionTypes.DELETE:
       return state;
 
-    case MessageActions.DELETE_MESSAGE_SUCCESS:
+    case MessageActions.ActionTypes.DELETE_COMPLETE:
       return [
         ...state.slice(0, action.payload),
         ...state.slice(action.payload + 1)

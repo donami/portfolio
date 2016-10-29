@@ -3,7 +3,7 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 import { Store } from '@ngrx/store';
 
 import { AppState } from '../../reducers';
-import { WorkActions } from '../../actions';
+import * as WorkActions from '../../actions/work.actions';
 import { Work } from '../../models/work';
 
 @Component({
@@ -17,7 +17,7 @@ export class WorkComponent implements OnInit {
 
   constructor(
     private store: Store<AppState>,
-    private workActions: WorkActions,
+    // private workActions: WorkActions,
     private route: ActivatedRoute,
     private router: Router
   ) {
@@ -29,7 +29,7 @@ export class WorkComponent implements OnInit {
   ngOnInit() {
     this.route.params.forEach((params: Params) => {
       let id = params['id'];
-      this.store.dispatch(this.workActions.getWork(id));
+      this.store.dispatch(new WorkActions.getWork(id));
     });
   }
 

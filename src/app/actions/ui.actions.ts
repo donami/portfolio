@@ -1,29 +1,30 @@
 import { Injectable } from '@angular/core';
 import { Action } from '@ngrx/store';
+import { type } from '../util';
 
-@Injectable()
-export class UIActions {
-  static LOAD = '[UI] Load';
-  load(): Action {
-    return {
-      type: UIActions.LOAD
-    };
-  };
+export const ActionTypes = {
+  OPEN:             type('[UI] Open'),
+  OPEN_COMPLETE:    type('[UI] Open Complete'),
+  LOAD:             type('[UI] Load'),
+};
 
-  static OPEN = '[UI] Open';
-  openComponent(component): Action {
-    return {
-      type: UIActions.OPEN,
-      payload: component,
-    };
-  };
+export class OpenAction implements Action {
+  type = ActionTypes.OPEN;
 
-  static OPEN_SUCCESS = '[UI] Open Success';
-  openComponentComplete(component): Action {
-    return {
-      type: UIActions.OPEN_SUCCESS,
-      payload: component
-    }
-  };
-
+  constructor(public payload: any) { }
 }
+
+export class OpenCompleteAction implements Action {
+  type = ActionTypes.OPEN_COMPLETE;
+
+  constructor(public payload: any) { }
+}
+
+export class LoadAction implements Action {
+  type = ActionTypes.LOAD;
+}
+
+export type Actions
+  = OpenAction
+  | OpenCompleteAction
+  | LoadAction;

@@ -1,19 +1,20 @@
 import { Injectable} from '@angular/core';
-import { Effect, StateUpdates, toPayload } from '@ngrx/effects';
+import { Effect, Actions } from '@ngrx/effects';
+import { Action } from '@ngrx/store';
 
 import { AppState } from '../reducers';
-import { UIActions } from '../actions';
+import * as UIActions from '../actions/ui.actions';
 import { UIService } from '../services/ui.service';
 
 @Injectable()
 export class UIEffects {
-    constructor (
-        private update$: StateUpdates<AppState>,
-        private actions: UIActions,
-        private svc: UIService,
-    ) {}
+  constructor(
+    private actions$: Actions,
+    private svc: UIService,
+  ) {};
 
-    @Effect() open$ = this.update$
-      .whenAction(UIActions.OPEN)
-      .map(component => this.actions.openComponentComplete(component.action.payload));
+  @Effect()
+  open$ = this.actions$
+    .ofType(UIActions.ActionTypes.OPEN)
+    .map(action => new UIActions.OpenCompleteAction(action.payload));
 }

@@ -1,44 +1,49 @@
 import { Injectable} from '@angular/core';
-import { Effect, StateUpdates, toPayload } from '@ngrx/effects';
+import { Effect, Actions, toPayload } from '@ngrx/effects';
 
 import { AppState } from '../reducers';
-import { TextActions } from '../actions';
+import * as TextActions from '../actions/text.actions';
 import { TextService } from '../shared/text.service';
 
 @Injectable()
 export class TextEffects {
-    constructor (
-        private update$: StateUpdates<AppState>,
-        private textActions: TextActions,
-        private svc: TextService,
-    ) {}
+  constructor(
+    private actions$: Actions,
+    private svc: TextService,
+  ) {};
 
-    @Effect() loadTexts$ = this.update$
-        .whenAction(TextActions.LOAD_TEXTS)
-        .switchMap(() => this.svc.getTextList())
-        .map(text => this.textActions.loadTextsSuccess(text));
+  @Effect()
+  loadTexts$ = this.actions$
+    .ofType(TextActions.ActionTypes.LOAD)
+    .switchMap(() => this.svc.getTextList())
+    .map(text => new TextActions.loadTextsSuccess(text));
 
-    @Effect() getText$ = this.update$
-        .whenAction(TextActions.GET_TEXT)
-        .map<string>(toPayload)
-        .switchMap(id => this.svc.getText(id))
-        .map(text => this.textActions.getTextSuccess(text));
+  @Effect()
+  getText$ = this.actions$
+    .ofType(TextActions.ActionTypes.GET)
+    .map<string>(toPayload)
+    .switchMap(id => this.svc.getText(id))
+    .map(text => new TextActions.getTextSuccess(text));
 
-    @Effect() saveText$ = this.update$
-        .whenAction(TextActions.SAVE_TEXT)
-        .map(update => update.action.payload)
-        .switchMap(text => this.svc.saveText(text))
-        .map(text => this.textActions.saveTextSuccess(text));
 
-    @Effect() addText$ = this.update$
-        .whenAction(TextActions.ADD_TEXT)
-        .map(update => update.action.payload)
-        .switchMap(text => this.svc.addText(text))
-        .map(text => this.textActions.addTextSuccess(text));
+  @Effect()
+  saveText$ = this.actions$
+    .ofType(TextActions.ActionTypes.SAVE)
+    .map(action => action.payload)
+    .switchMap(text => this.svc.saveText(text))
+    .map(text => new TextActions.saveTextSuccess(text));
 
-    @Effect() deleteText$ = this.update$
-        .whenAction(TextActions.DELETE_TEXT)
-        .map(update => update.action.payload)
-        .switchMap(text => this.svc.deleteText(text))
-        .map(text => this.textActions.deleteTextSuccess(text));
+  @Effect()
+  addText$ = this.actions$
+    .ofType(TextActions.ActionTypes.ADD)
+    .map(action => action.payload)
+    .switchMap(text => this.svc.addText(text))
+    .map(text => new TextActions.addTextSuccess(text));
+
+  @Effect()
+  deleteText$ = this.actions$
+    .ofType(TextActions.ActionTypes.DELETE)
+    .map(action => action.payload)
+    .switchMap(text => this.svc.deleteText(text))
+    .map(text => new TextActions.deleteTextSuccess(text));
 }

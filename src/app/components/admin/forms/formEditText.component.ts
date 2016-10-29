@@ -17,12 +17,11 @@ import {
   FormBuilder,
   AbstractControl,
   Validators,
-  REACTIVE_FORM_DIRECTIVES
 } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { AppState } from '../../../reducers';
-import { TextActions } from '../../../actions';
+import * as TextActions from '../../../actions/text.actions';
 import { Text } from '../../../shared/text';
 import { Message } from '../../../shared/message';
 
@@ -43,7 +42,6 @@ import { Message } from '../../../shared/message';
       ]),
     ])
   ],
-  directives: [REACTIVE_FORM_DIRECTIVES],
   template: `
     <div class="ui raised segment">
 
@@ -167,7 +165,7 @@ export class FormEditTextComponent implements OnInit, OnChanges {
 
   constructor(
     private store: Store<AppState>,
-    private textActions: TextActions,
+    // private textActions: TextActions,
     private _fb: FormBuilder)
   {
     this.form = _fb.group({
@@ -217,13 +215,13 @@ export class FormEditTextComponent implements OnInit, OnChanges {
   }
 
   onSubmit(data: Text): void {
-    this.store.dispatch(this.textActions.saveText(data));
+    this.store.dispatch(new TextActions.saveText(data));
     this.sendMessage.emit(new Message('Updated successfully!', 'Text was updated successfully', 'positive'));
     this.setState('list');
   }
 
   onSubmitAddForm(data: Text): void {
-    this.store.dispatch(this.textActions.addText(data));
+    this.store.dispatch(new TextActions.addText(data));
     this.sendMessage.emit(new Message('Added successfully!', 'Text was added successfully', 'positive'));
 
     this.setState('list');
@@ -254,7 +252,7 @@ export class FormEditTextComponent implements OnInit, OnChanges {
 
   // Delete text
   deleteText(text: Text): void {
-    this.store.dispatch(this.textActions.deleteText(text));
+    this.store.dispatch(new TextActions.deleteText(text));
     this.sendMessage.emit(new Message('Removed succesfully!', 'Text was removed successfully', 'info'));
   }
 

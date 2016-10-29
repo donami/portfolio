@@ -4,11 +4,12 @@ import {
   FormGroup,
   Validators,
   AbstractControl,
-  REACTIVE_FORM_DIRECTIVES } from '@angular/forms';
+  // REACTIVE_FORM_DIRECTIVES } from '@angular/forms';
+} from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../reducers';
-import { MessageActions } from '../../actions';
-import { TextActions } from '../../actions';
+import * as MessageActions from '../../actions/message.actions';
+import * as TextActions from '../../actions/text.actions';
 import { Text } from '../../shared/text.interface';
 import { Message } from '../../shared/message';
 
@@ -16,7 +17,7 @@ import { Message } from '../../shared/message';
   selector: 'app-contact',
   templateUrl: './contact.component.html',
   styleUrls: ['./contact.component.scss'],
-  directives: [REACTIVE_FORM_DIRECTIVES]
+  // directives: [REACTIVE_FORM_DIRECTIVES]
 })
 export class ContactComponent implements OnInit {
   form: FormGroup;
@@ -31,8 +32,9 @@ export class ContactComponent implements OnInit {
   constructor(
     private store: Store<AppState>,
     private formBuilder: FormBuilder,
-    private textActions: TextActions,
-    private messageActions: MessageActions) {
+    // private textActions: TextActions,
+    // private messageActions: MessageActions
+  ) {
 
     this.store.select('text')
       .subscribe( (text: Text) => {
@@ -43,7 +45,7 @@ export class ContactComponent implements OnInit {
 
   ngOnInit() {
     this.initForm();
-    this.store.dispatch(this.textActions.getText('57dc1551495d0910dd299156'));
+    this.store.dispatch(new TextActions.getText('57dc1551495d0910dd299156'));
   }
 
   initForm(): void {
@@ -64,7 +66,7 @@ export class ContactComponent implements OnInit {
     this.submitted = true;
 
     if (valid) {
-      this.store.dispatch(this.messageActions.addMessage(new Message('Thanks!', 'Your message was successfully sent, we will get back to you as soon as possible', 'positive')));
+      this.store.dispatch(new MessageActions.addMessage(new Message('Thanks!', 'Your message was successfully sent, we will get back to you as soon as possible', 'positive')));
       this.initForm();
     }
   }

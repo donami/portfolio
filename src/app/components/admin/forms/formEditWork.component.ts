@@ -4,17 +4,13 @@ import { Store } from '@ngrx/store';
 
 import { Work } from '../../../models/work';
 import { Message } from '../../../shared/message';
-import { WorkActions } from '../../../actions';
+import * as WorkActions from '../../../actions/work.actions';
 import { AppState } from '../../../reducers';
 import { FileUploadComponent } from './file-upload.component';
 import { AddTechnologyComponent } from './add-technology.component';
 
 @Component({
   selector: 'formEditWork',
-  directives: [
-    FileUploadComponent,
-    AddTechnologyComponent,
-  ],
   template: `
     <div class="ui raised segment">
       <h3 (click)="setState('list')" class="pointer" (click)="toggleOpen()">Edit works</h3>
@@ -149,7 +145,7 @@ export class FormEditWorkComponent implements OnInit, OnChanges {
 
   constructor(
     private store: Store<AppState>,
-    private workActions: WorkActions,
+    // private workActions: WorkActions,
     private _fb: FormBuilder) {
 
     this.resetStates();
@@ -212,7 +208,7 @@ export class FormEditWorkComponent implements OnInit, OnChanges {
 
       if (this.technologies) work.technologies = this.technologies;
 
-      this.store.dispatch(this.workActions.saveWork(work));
+      this.store.dispatch(new WorkActions.saveWork(work));
       this.sendMessage.emit(new Message('Updated successfully!', 'Your changes was saved', 'positive'));
       this.setState('list');
     }
@@ -226,7 +222,7 @@ export class FormEditWorkComponent implements OnInit, OnChanges {
 
       if (this.technologies) work.technologies = this.technologies;
 
-      this.store.dispatch(this.workActions.addWork(work));
+      this.store.dispatch(new WorkActions.addWork(work));
       this.sendMessage.emit(new Message('Added successfully', 'Your work has been added', 'positive'));
       this.setState('list');
       this.initAddFormGroup();
@@ -243,7 +239,7 @@ export class FormEditWorkComponent implements OnInit, OnChanges {
 
   // Delete a work
   deleteWork(work: Work): void {
-    this.store.dispatch(this.workActions.deleteWork(work));
+    this.store.dispatch(new WorkActions.deleteWork(work));
     this.sendMessage.emit(new Message('Removed successfully!', 'Work was removed successfully', 'info'));
   }
 

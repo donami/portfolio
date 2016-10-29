@@ -1,7 +1,7 @@
 import { Action } from '@ngrx/store';
 
 import { Work } from '../models/work';
-import { WorkActions } from '../actions';
+import * as WorkActions from '../actions/work.actions';
 
 export type WorkState = Work;
 
@@ -18,7 +18,7 @@ const initialState: WorkState = {
 
 export default function (state = initialState, action: Action): WorkState {
     switch (action.type) {
-        case WorkActions.GET_WORK_SUCCESS: {
+        case WorkActions.ActionTypes.GET_COMPLETE: {
             return action.payload;
         }
         default: {

@@ -3,7 +3,7 @@ import { Store } from '@ngrx/store';
 import * as marked from 'marked';
 
 import { AppState } from '../../reducers';
-import { TextActions } from '../../actions';
+import * as TextActions from '../../actions/text.actions';
 import { Text } from '../../shared/text.interface';
 
 @Component({
@@ -17,7 +17,7 @@ export class ServiceComponent implements OnInit {
   text: Text;
   errorMessage: string;
 
-  constructor(private store: Store<AppState>, private textActions: TextActions) {
+  constructor(private store: Store<AppState>) {
     this.store.select('text')
       .subscribe( (text: Text) => {
         this.text = text;
@@ -25,7 +25,7 @@ export class ServiceComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.store.dispatch(this.textActions.getText('57dae89148d7b92e8732d0fb'));
+    this.store.dispatch(new TextActions.getText('57dae89148d7b92e8732d0fb'));
   }
 
   // Parse markdown

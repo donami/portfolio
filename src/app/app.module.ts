@@ -1,10 +1,13 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule, ReactiveFormsModule, REACTIVE_FORM_DIRECTIVES, REACTIVE_FORM_PROVIDERS } from '@angular/forms';
+// import { FormsModule, ReactiveFormsModule, REACTIVE_FORM_DIRECTIVES, REACTIVE_FORM_PROVIDERS } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { HttpModule, JsonpModule } from '@angular/http';
 import { Store, StoreModule, provideStore } from '@ngrx/store';
-import { runEffects } from '@ngrx/effects';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+// import { runEffects } from '@ngrx/effects';
+import { EffectsModule } from '@ngrx/effects';
 import { routerReducer, RouterStoreModule } from '@ngrx/router-store';
 
 import { AppComponent } from './app.component';
@@ -21,9 +24,16 @@ import {
   NotFoundComponent,
   TestComponent,
 } from './components';
-import effects from './effects';
+
 import reducer from './reducers';
-import actions from './actions';
+
+import { FileUploadComponent } from './components/admin/forms/file-upload.component'; // TODO: move this
+import { AddTechnologyComponent } from './components/admin/forms/add-technology.component'; // TODO: move this
+
+import { FormEditWorkComponent } from './components/admin/forms/formEditWork.component';
+import { FormEditTextComponent } from './components/admin/forms/formEditText.component';
+
+import { WorkListItemComponent } from './components/work-list/work-list-item.component';
 
 import { AUTH_PROVIDERS } from './authentication.service';
 import { LoggedInGuard } from './guards/loggedIn.guard';
@@ -33,6 +43,10 @@ import { MessageService } from './shared/message.service';
 import { WorkService } from './services/work.service';
 import { TextService } from './shared/text.service';
 import { UIService } from './services/ui.service';
+import { UIEffects } from './effects/ui';
+import { TextEffects } from './effects/text';
+import { WorkEffects } from './effects/work';
+import { MessageEffects } from './effects/message';
 
 @NgModule({
   declarations: [
@@ -49,26 +63,34 @@ import { UIService } from './services/ui.service';
     TestComponent,
     WorkComponent,
     NotFoundComponent,
+    AddTechnologyComponent,
+    FileUploadComponent,
+    FormEditWorkComponent,
+    FormEditTextComponent,
+    WorkListItemComponent,
   ],
   imports: [
     BrowserModule,
     RouterModule.forRoot([], {useHash: false}),
     StoreModule.provideStore({ router: routerReducer }),
     RouterStoreModule.connectRouter(),
+    StoreDevtoolsModule.instrumentOnlyWithExtension(),
     FormsModule,
     HttpModule,
     JsonpModule,
+    EffectsModule.run(UIEffects),
+    EffectsModule.run(TextEffects),
+    EffectsModule.run(WorkEffects),
+    EffectsModule.run(MessageEffects),
     routing,
+    ReactiveFormsModule,
   ],
   providers: [
     appRoutingProviders,
     AUTH_PROVIDERS,
-    REACTIVE_FORM_PROVIDERS,
     LoggedInGuard,
     MessageService,
     provideStore(reducer),
-    runEffects(effects),
-    actions,
     WorkService,
     TextService,
     UIService,

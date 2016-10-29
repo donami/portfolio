@@ -11,10 +11,11 @@ import { Observable } from 'rxjs/Observable';
 import { Store } from '@ngrx/store';
 
 import { AppState } from './reducers';
-import { MessageActions } from './actions';
-import { TextActions } from './actions';
-import { WorkActions } from './actions';
-import { UIActions } from './actions';
+import * as MessageActions from './actions/message.actions';
+import * as TextActions from './actions/text.actions';
+import * as WorkActions from './actions/work.actions';
+// import { UIActions } from './actions';
+import * as UIActions from './actions/ui.actions';
 
 @Component({
   selector: 'app-root',
@@ -44,21 +45,20 @@ export class AppComponent {
 
   constructor(
     public store: Store<AppState>,
-    public workActions: WorkActions,
-    public messageActions: MessageActions,
-    private textActions: TextActions,
-    private UIActions: UIActions
+    // public workActions: WorkActions,
+    // public messageActions: MessageActions,
+    // private textActions: TextActions,
+    // private UIActions: UIActions
   ) {
 
     this.messages = store.select('messages');
 
-    this.store.dispatch(workActions.loadWorks());
-    this.store.dispatch(textActions.loadTexts());
-    this.store.dispatch(UIActions.load());
+    this.store.dispatch(new WorkActions.loadWorks());
+    this.store.dispatch(new TextActions.loadTexts());
   }
 
 
   closeMessage(message): void {
-    this.store.dispatch(this.messageActions.deleteMessage(message));
+    this.store.dispatch(new MessageActions.deleteMessage(message));
   }
 }

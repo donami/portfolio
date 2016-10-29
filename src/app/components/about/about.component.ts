@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import * as marked from 'marked';
 
 import { AppState } from '../../reducers';
-import { TextActions } from '../../actions';
+import * as TextActions from '../../actions/text.actions';
 import { Text } from '../../shared/text.interface';
 
 @Component({
@@ -18,7 +18,10 @@ export class AboutComponent implements OnInit {
   text: Text;
   errorMessage: string;
 
-  constructor(private store: Store<AppState>, private textActions: TextActions) {
+  constructor(
+    private store: Store<AppState>,
+    // private textActions: TextActions
+  ) {
     this.store.select('text')
                 .subscribe( (text: Text) => {
                   this.text = text
@@ -26,7 +29,7 @@ export class AboutComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.store.dispatch(this.textActions.getText('57db409680a35d2f240087ce'));
+    this.store.dispatch(new TextActions.getText('57db409680a35d2f240087ce'));
   }
 
   // Parse markdown

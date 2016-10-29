@@ -1,7 +1,7 @@
-import { Action } from '@ngrx/store';
+  import { Action } from '@ngrx/store';
 
 import { UI } from '../shared/ui.interface';
-import { UIActions } from '../actions';
+import * as UIActions from '../actions/ui.actions';
 
 export type UIState = UI;
 
@@ -18,11 +18,11 @@ const initialState: UIState = {
 
 export default function (state = initialState, action: Action): UIState {
     switch (action.type) {
-      case UIActions.OPEN_SUCCESS: {
+      case UIActions.ActionTypes.OPEN_COMPLETE: {
         state.components[action.payload].open = !state.components[action.payload].open;
         return state;
       }
-      case UIActions.OPEN: {
+      case UIActions.ActionTypes.OPEN: {
         return state;
       }
       default: {

@@ -1,7 +1,7 @@
 import { Action } from '@ngrx/store';
 
 import { Text } from '../shared/text.interface';
-import { TextActions } from '../actions';
+import * as TextActions from '../actions/text.actions';
 
 export type TextState = Text;
 
@@ -13,7 +13,7 @@ const initialState: TextState = {
 
 export default function (state = initialState, action: Action): TextState {
     switch (action.type) {
-        case TextActions.GET_TEXT_SUCCESS: {
+        case TextActions.ActionTypes.GET_COMPLETE: {
             return action.payload;
         }
         default: {

@@ -1,6 +1,6 @@
 import { ActionReducer, Action } from '@ngrx/store';
 import { Text } from '../shared/text.interface';
-import { TextActions } from '../actions/text.actions';
+import * as TextActions from '../actions/text.actions';
 import * as _ from 'lodash';
 
 export type TextListState = Text[];
@@ -10,13 +10,13 @@ const initialState: TextListState = [];
 export default function (state = initialState, action: Action): TextListState {
     switch (action.type) {
 
-      case TextActions.LOAD_TEXTS_SUCCESS:
+      case TextActions.ActionTypes.LOAD_COMPLETE:
         return action.payload;
 
-      case TextActions.ADD_TEXT_SUCCESS:
+      case TextActions.ActionTypes.ADD_COMPLETE:
         return [...state, action.payload];
 
-      case TextActions.SAVE_TEXT_SUCCESS:
+      case TextActions.ActionTypes.SAVE_COMPLETE:
         let index = _.findIndex(state, {_id: action.payload._id});
         if (index >= 0) {
           return [
@@ -27,7 +27,7 @@ export default function (state = initialState, action: Action): TextListState {
         }
         return state;
 
-      case TextActions.DELETE_TEXT_SUCCESS:
+      case TextActions.ActionTypes.DELETE_COMPLETE:
         return state.filter(text => {
           return text._id !== action.payload._id;
         });
