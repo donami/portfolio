@@ -10,6 +10,7 @@ import {
   WorkComponent,
   WorkListComponent,
   NotFoundComponent,
+  PolicyComponent,
   TestComponent,
 } from './components';
 import { LoggedInGuard } from './guards/loggedIn.guard';
@@ -22,6 +23,7 @@ const appRoutes: Routes = [
   { path: 'about', component: AboutComponent },
   { path: 'signin', component: LoginComponent },
   { path: 'contact', component: ContactComponent },
+  { path: 'privacy-policy', component: PolicyComponent },
   { path: '404', component: NotFoundComponent },
   { path: 'admin', component: AdminComponent, canActivate: [LoggedInGuard] },
   { path: 'test', component: TestComponent },

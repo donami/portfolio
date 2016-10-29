@@ -48,6 +48,7 @@ import { TextEffects } from './effects/text';
 import { WorkEffects } from './effects/work';
 import { MessageEffects } from './effects/message';
 import { FooterComponent } from './components/footer/footer.component';
+import { PolicyComponent } from './components/policy/policy.component';
 
 @NgModule({
   declarations: [
@@ -70,6 +71,7 @@ import { FooterComponent } from './components/footer/footer.component';
     FormEditTextComponent,
     WorkListItemComponent,
     FooterComponent,
+    PolicyComponent,
   ],
   imports: [
     BrowserModule,
