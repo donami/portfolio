@@ -7,11 +7,11 @@ import { Text } from '../../shared/text';
 import * as TextActions from '../../actions/text.actions';
 
 @Component({
-  selector: 'app-policy',
-  templateUrl: './policy.component.html',
-  styleUrls: ['./policy.component.scss']
+  selector: 'app-terms',
+  templateUrl: './terms.component.html',
+  styleUrls: ['./terms.component.scss']
 })
-export class PolicyComponent implements OnInit {
+export class TermsComponent implements OnInit {
 
   text: Text;
 
@@ -20,7 +20,7 @@ export class PolicyComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.store.dispatch(new TextActions.getText('policy'));
+    this.store.dispatch(new TextActions.getText('terms'));
   }
 
   // Parse markdown

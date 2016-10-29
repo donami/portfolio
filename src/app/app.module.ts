@@ -49,6 +49,7 @@ import { WorkEffects } from './effects/work';
 import { MessageEffects } from './effects/message';
 import { FooterComponent } from './components/footer/footer.component';
 import { PolicyComponent } from './components/policy/policy.component';
+import { TermsComponent } from './components/terms/terms.component';
 
 @NgModule({
   declarations: [
@@ -72,6 +73,7 @@ import { PolicyComponent } from './components/policy/policy.component';
     WorkListItemComponent,
     FooterComponent,
     PolicyComponent,
+    TermsComponent,
   ],
   imports: [
     BrowserModule,
