@@ -1,0 +1,25 @@
+footer#footer {
+  background: #2A3031;
+  padding: 40px 20px;
+  min-height: 300px;
+  color: #fff;
+
+  h3 {
+    color: #fff;
+    margin-top: 10px;
+  }
+
+  a {
+    color: #fff;
+
+    &:hover {
+      color: #FE8D01;
+    }
+  }
+
+  .copyright {
+    margin-top: 60px;
+    text-align: center;
+  }
+
+}

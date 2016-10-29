@@ -47,6 +47,7 @@ import { UIEffects } from './effects/ui';
 import { TextEffects } from './effects/text';
 import { WorkEffects } from './effects/work';
 import { MessageEffects } from './effects/message';
+import { FooterComponent } from './components/footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -68,6 +69,7 @@ import { MessageEffects } from './effects/message';
     FormEditWorkComponent,
     FormEditTextComponent,
     WorkListItemComponent,
+    FooterComponent,
   ],
   imports: [
     BrowserModule,

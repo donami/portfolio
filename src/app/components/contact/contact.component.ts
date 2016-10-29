@@ -4,7 +4,6 @@ import {
   FormGroup,
   Validators,
   AbstractControl,
-  // REACTIVE_FORM_DIRECTIVES } from '@angular/forms';
 } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../reducers';
@@ -17,7 +16,6 @@ import { Message } from '../../shared/message';
   selector: 'app-contact',
   templateUrl: './contact.component.html',
   styleUrls: ['./contact.component.scss'],
-  // directives: [REACTIVE_FORM_DIRECTIVES]
 })
 export class ContactComponent implements OnInit {
   form: FormGroup;
@@ -32,8 +30,6 @@ export class ContactComponent implements OnInit {
   constructor(
     private store: Store<AppState>,
     private formBuilder: FormBuilder,
-    // private textActions: TextActions,
-    // private messageActions: MessageActions
   ) {
 
     this.store.select('text')

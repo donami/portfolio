@@ -49,19 +49,7 @@ header#header {
 }
 
 #main-content {
+  min-height: 500px;
   margin-bottom: 60px;
   position: relative;
-}
-
-footer#footer {
-  background: #2A3031;
-  padding: 40px 20px;
-  min-height: 300px;
-
-  .footer-logo {
-    background: url("../assets//logo.svg?v=6.0.6") no-repeat center -84px;
-    background-size: 100% auto;
-    width: 129px;
-    height: 35px;
-  }
 }
