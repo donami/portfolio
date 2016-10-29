@@ -29,7 +29,7 @@ export class AboutComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.store.dispatch(new TextActions.getText('57db409680a35d2f240087ce'));
+    this.store.dispatch(new TextActions.getText('about'));
   }
 
   // Parse markdown

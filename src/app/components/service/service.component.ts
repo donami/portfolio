@@ -25,7 +25,7 @@ export class ServiceComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.store.dispatch(new TextActions.getText('57dae89148d7b92e8732d0fb'));
+    this.store.dispatch(new TextActions.getText('services'));
   }
 
   // Parse markdown

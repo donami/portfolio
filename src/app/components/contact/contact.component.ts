@@ -45,7 +45,7 @@ export class ContactComponent implements OnInit {
 
   ngOnInit() {
     this.initForm();
-    this.store.dispatch(new TextActions.getText('57dc1551495d0910dd299156'));
+    this.store.dispatch(new TextActions.getText('contact'));
   }
 
   initForm(): void {

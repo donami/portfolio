@@ -8,7 +8,9 @@ export type TextState = Text;
 const initialState: TextState = {
     _id: '',
     title: '',
-    content: ''
+    content: '',
+    locked: false,
+    label: ''
 };
 
 export default function (state = initialState, action: Action): TextState {

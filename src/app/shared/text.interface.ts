@@ -1,5 +1,7 @@
 export interface Text {
-  _id?: string
+  _id?: string,
+  label?: string,
+  locked: boolean,
   title: string,
   content: string,
 };

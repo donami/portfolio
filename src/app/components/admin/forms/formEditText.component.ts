@@ -59,6 +59,11 @@ import { Message } from '../../../shared/message';
             </div>
 
             <div class="field">
+              <label for="label">Label</label>
+              <input type="text" [formControl]="form.controls['label']" placeholder="Unique label identifier"/>
+            </div>
+
+            <div class="field">
               <label for="content">Content</label>
               <textarea [formControl]="form.controls['content']" placeholder="Content"></textarea>
             </div>
@@ -86,6 +91,11 @@ import { Message } from '../../../shared/message';
             </div>
 
             <div class="field">
+              <label for="label">Label</label>
+              <input type="text" [formControl]="addForm.controls['label']" placeholder="Unique label identifier"/>
+            </div>
+
+            <div class="field">
               <label for="content">Content</label>
               <textarea [formControl]="addForm.controls['content']" placeholder="Content"></textarea>
             </div>
@@ -109,7 +119,7 @@ import { Message } from '../../../shared/message';
 
             <div class="right floated content">
               <button class="mini ui button" (click)="selectText(text)">Edit</button>
-              <button class="mini ui red button" (click)="deleteText(text)">Delete</button>
+              <button class="mini ui red button" [disabled]="text?.locked" (click)="deleteText(text)">Delete</button>
             </div>
 
             <div class="content">
@@ -172,12 +182,15 @@ export class FormEditTextComponent implements OnInit, OnChanges {
       '_id': [''],
       'title': ['', Validators.required],
       'content': ['', Validators.required],
+      'locked': [''],
+      'label': [''],
       '__v': [''],
     });
 
     this.addForm = _fb.group({
       'title': ['', Validators.required],
-      'content': ['', Validators.required]
+      'content': ['', Validators.required],
+      'label': ['', Validators.required],
     });
 
     this.segment = {
@@ -198,7 +211,6 @@ export class FormEditTextComponent implements OnInit, OnChanges {
       edit: false,
       list: true
     };
-
   }
 
   ngOnInit() {}
@@ -247,13 +259,27 @@ export class FormEditTextComponent implements OnInit, OnChanges {
     this.selectedText = text;
     (<FormGroup>this.form).setValue(text, { onlySelf: true });
 
+    // Label should not be editable on locked texts
+    if (text.locked === true) {
+      this.form.controls['label'].disable({ onlySelf: true});
+    }
+    else {
+      this.form.controls['label'].enable({ onlySelf: false});
+    }
+
     this.setState('edit');
   }
 
   // Delete text
   deleteText(text: Text): void {
-    this.store.dispatch(new TextActions.deleteText(text));
-    this.sendMessage.emit(new Message('Removed succesfully!', 'Text was removed successfully', 'info'));
+    // Verify that the text is not locked before removing it
+    if (text.locked === false) {
+      this.store.dispatch(new TextActions.deleteText(text));
+      this.sendMessage.emit(new Message('Removed succesfully!', 'Text was removed successfully', 'info'));
+    }
+    else {
+      this.sendMessage.emit(new Message('Unable to remove', 'This text is locked and cannot be removed', 'warning'));
+    }
   }
 
 }
