@@ -12,7 +12,7 @@ import {
   AbstractControl,
   Validators,
 } from '@angular/forms';
-  // REACTIVE_FORM_DIRECTIVES } from '@angular/forms';
+import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 
@@ -21,6 +21,7 @@ import * as MessageActions from '../../actions/message.actions';
 import * as UIActions from '../../actions/ui.actions';
 import { Message } from '../../shared/message';
 import { LoginComponent } from '../../components/login/login.component';
+import { AuthenticationService } from '../../authentication.service';
 
 @Component({
   selector: 'app-admin',
@@ -40,7 +41,8 @@ export class AdminComponent {
 
   constructor(
     private store: Store<AppState>,
-    // private messageActions: MessageActions,
+    private router: Router,
+    private authenticationService: AuthenticationService,
   ) {
     this.works = store.select('works');
     this.texts = store.select('texts');
@@ -56,6 +58,12 @@ export class AdminComponent {
 
   toggleUIComponent(component): void {
     this.store.dispatch(new UIActions.OpenAction(component));
+  }
+
+  logout(): void {
+    this.authenticationService.logout();
+    this.store.dispatch(new MessageActions.addMessage(new Message('Signed out!', 'You are now signed out', 'positive')));
+    this.router.navigate(['signin']);
   }
 
 }

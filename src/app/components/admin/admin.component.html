@@ -1,10 +1,17 @@
 <div class="admin-component-container">
+
   <div class="ui container">
-    <login></login>
+
+    <div class="top">
+      <button class="ui button logout" (click)="logout()">Logout</button>
+      <h1>Dashboard</h1>
+    </div>
+
 
     <formEditWork [works]="works" [open]="ui.components.works.open" (sendMessage)="message($event)" (toggleUIComponent)="toggleUIComponent($event)"></formEditWork>
 
     <formEditText [texts]="texts" [open]="ui.components.texts.open" (sendMessage)="message($event)" (toggleUIComponent)="toggleUIComponent($event)"></formEditText>
 
   </div>
+
 </div>

@@ -22,7 +22,7 @@ const appRoutes: Routes = [
   { path: 'work/:id', component: WorkComponent },
   { path: 'services', component: ServiceComponent },
   { path: 'about', component: AboutComponent },
-  { path: 'signin', component: LoginComponent },
+  { path: 'signin', component: LoginComponent, canActivate: [LoggedInGuard] },
   { path: 'contact', component: ContactComponent },
   { path: 'privacy-policy', component: PolicyComponent },
   { path: 'terms-conditions', component: TermsComponent },

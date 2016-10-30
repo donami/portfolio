@@ -1,5 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { Store } from '@ngrx/store';
 import { AuthenticationService } from '../../authentication.service';
+import * as MessageActions from '../../actions/message.actions';
+import { Message } from '../../shared/message';
+import { AppState } from '../../reducers';
 
 @Component({
   selector: 'login',
@@ -8,25 +13,32 @@ import { AuthenticationService } from '../../authentication.service';
 })
 export class LoginComponent implements OnInit {
 
-  message: string;
+  constructor(
+    private store: Store<AppState>,
+    private router: Router,
+    public authService: AuthenticationService
+  ) {}
 
-  constructor(public authService: AuthenticationService) {
-    this.message = '';
-  }
+  ngOnInit() {}
 
-  ngOnInit() {
-  }
+  login(username: string, password: string): void {
 
-  login(username: string, password: string): boolean {
-    this.message = '';
+    this.authService.login(username, password)
+      .then((res) => {
+        this.store.dispatch(new MessageActions.addMessage(new Message('Authenticated!', 'You are now signed in', 'positive')));
+        localStorage.setItem('username', res.username);
+        this.router.navigate(['admin']);
+      })
+      .catch(err => {
+        let error = err.json();
+        if (error.message !== undefined) {
+          this.store.dispatch(new MessageActions.addMessage(new Message('Something went wrong', error.message, 'warning')));
+        }
+        else {
+          console.log(err);
+        }
+      });
 
-    if (!this.authService.login(username, password)) {
-      this.message = 'Incorrect credentials';
-      setTimeout(function() {
-        this.message = '';
-      }.bind(this), 2500);
-    }
-    return false;
   }
 
   logout(): boolean {

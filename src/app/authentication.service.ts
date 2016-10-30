@@ -1,15 +1,31 @@
 import { Injectable } from '@angular/core';
+import { Http, Headers, RequestOptions } from '@angular/http';
+import { Observable } from 'rxjs/Observable';
+
+interface User {
+  _id: string,
+  username: string,
+  password: string,
+  __v: number
+}
 
 @Injectable()
 export class AuthenticationService {
 
-  login(user: string, password: string): boolean {
-    if (user === 'user' && password === 'password') {
-      localStorage.setItem('username', user);
-      return true;
-    }
+  private apiUrl = 'http://localhost:3001/api/auth';  // URL to web api
 
-    return false;
+  constructor(private http: Http) {}
+
+  login(user: string, password: string): Promise<User> {
+
+    let headers = new Headers({ 'Content-Type': 'application/json' });
+    let options = new RequestOptions({ headers: headers });
+
+    let authed = false;
+
+    return this.http.post(this.apiUrl + '/verify-auth', {username: user, password: password}, options)
+      .toPromise()
+      .then((res) => res.json())  
   }
 
   logout(): any {
